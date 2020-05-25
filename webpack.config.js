@@ -1,27 +1,28 @@
-const path = require('path');
-const webpack = require('webpack');
+const path = require("path");
+const webpack = require("webpack");
 // const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const copyPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const copyPlugin = require("copy-webpack-plugin");
 
 const env = process.env.NODE_ENV;
 
 module.exports = {
-  entry: './app/js/app.js',
+  entry: "./app/js/app.js",
 
   // mode: development,
   mode: env,
 
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: '[name].bundle.js',
-    // publicPath: ''
+    path: path.resolve(__dirname, "dist"),
+    filename: "[name].bundle.js",
+    publicPath: "./",
   },
 
   devServer: {
     open: true,
-    contentBase: path.resolve(__dirname,'./public'),
+    publicPath: "/",
+    contentBase: path.resolve(__dirname, "/"),
     compress: true,
     port: 3500,
     hot: true,
@@ -31,65 +32,61 @@ module.exports = {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        loader: 'babel-loader',
+        loader: "babel-loader",
         exclude: /node_modules/,
         options: {
           presets: [
-            ["@babel/preset-env", { useBuiltIns: 'usage', corejs: "2.0.0" }]
+            ["@babel/preset-env", { useBuiltIns: "usage", corejs: "2.0.0" }],
           ],
-          plugins: [
-            "@babel/plugin-proposal-class-properties"
-          ]}
+          plugins: ["@babel/plugin-proposal-class-properties"],
+        },
       },
       {
-        test: /\.(jpg|png|svg|gif|jpeg)$/,
-        use: 'file-loader',
-        // loader: 'file-loader',
-        // options: {
-          // name: '[name][contenthash:6].[ext]',
-          // outputPath: 'images',
-          // publicPath: '../images'
-        // }
+        test: /\.(sa|sc|c)ss$/,
+        use: ["style-loader", "css-loader", "postcss-loader", "sass-loader"],
       },
+      // {
+      // test: /\.(jpg|png|svg|gif|jpeg)$/,
+      // use: "file-loader",
+      // loader: "file?name=[name].[ext]",
+      // options: {
+      // name: "[name].[ext]",
+      // outputPath: 'images',
+      // publicPath: '../images'
+      // },
       // {
       //   test: /\.(sa|sc|c)ss$/,
       //   use: [
-      //     env == 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
-      //     'css-loader',
-      //     'postcss-loader',
-      //     'sass-loader'
-      //   ]
-      // }
-        {
-          test: /\.txt$/,
-          use: 'raw-loader'
-        },
-        {
-          test: /\.(sa|sc|c)ss$/,
-          use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
-        },
-        {
-          test: /\.(jpg|png|svg|gif|jpeg)$/,
-          use: 'file-loader',
-        }
-    ]
+      //     env === "development" ? "style-loader" : MiniCssExtractPlugin.loader,
+      //     "css-loader",
+      //     "postcss-loader",
+      //     "sass-loader",
+      //   ],
+      // },
+      {
+        test: /\.txt$/,
+        use: "raw-loader",
+      },
+      {
+        test: /\.(jpg|png|svg|gif|jpeg)$/,
+        use: "file-loader",
+      },
+    ],
   },
 
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: './app/index.html',
-      title: "nowa aplikacja"}),
+      template: "./app/index.html",
+      title: "Mishiko portfolio",
+      favicon: "./app/images/favicon-32x32.png",
+    }),
     new webpack.HotModuleReplacementPlugin(),
-    // new MiniCssExtractPlugin({
-    //   // Options similar to the same options in webpackOptions.output
-    //   // both options are optional
-    //   filename: "[name].css",
-    //   chunkFilename: "[id].css"
-    // }),
-    new copyPlugin([{
-      from: 'app/images',
-      to: 'dist/images'
-    }])
-  ]
+    new copyPlugin([
+      {
+        from: "app/images",
+        to: "images",
+      },
+    ]),
+  ],
 };

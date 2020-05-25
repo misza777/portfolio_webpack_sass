@@ -1,9 +1,9 @@
-const path = require('path');
-const webpack = require('webpack');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
+const path = require("path");
+const webpack = require("webpack");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 const env = process.env.NODE_ENV;
 
@@ -11,85 +11,82 @@ module.exports = {
   mode: env,
 
   entry: {
-    main: './app/js/app.js',
+    main: "./app/js/app.js",
   },
   output: {
-    filename: '[name]-bundle[contenthash:6].js',
-    path: path.resolve(__dirname,'../', 'build'),
-    publicPath: './'
+    filename: "[name]-bundle[contenthash:6].js",
+    path: path.resolve(__dirname, "../", "build"),
+    publicPath: "./",
   },
   module: {
     rules: [
       {
         test: /\.txt$/,
-        use: 'raw-loader'
+        use: "raw-loader",
       },
       {
         test: /\.(sa|sc|c)ss$/,
         use: [
           MiniCssExtractPlugin.loader,
-          'css-loader',
-          'postcss-loader',
-          'sass-loader'
-        ]
+          "css-loader",
+          "postcss-loader",
+          "sass-loader",
+        ],
       },
       {
         test: /\.(jpg|png|svg|gif|jpeg)$/,
-        use: [{
-          loader: 'file-loader',
-          options: {
-            name: '[name][contenthash:6].[ext]',
-            outputPath: 'images',
-          }
-        },
-        {
-          loader: 'image-webpack-loader'
-          // ,
-          // options: {
-          //   mozjpeg: {
-          //     quality: 70,
-          //     progressive: true
-          //   }
-          // }
-        }
-        ]
-
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "[name][contenthash:6].[ext]",
+              outputPath: "images",
+            },
+          },
+          {
+            loader: "image-webpack-loader",
+            // ,
+            // options: {
+            //   mozjpeg: {
+            //     quality: 70,
+            //     progressive: true
+            //   }
+            // }
+          },
+        ],
       },
       {
         test: /\.(js|jsx)$/,
-        loader: 'babel-loader',
+        loader: "babel-loader",
         exclude: /node_modules/,
         options: {
           presets: [
-            ["@babel/preset-env", { useBuiltIns: 'usage', corejs: "2.0.0" }]
+            ["@babel/preset-env", { useBuiltIns: "usage", corejs: "2.0.0" }],
           ],
-          plugins: [
-            "@babel/plugin-proposal-class-properties"
-          ]
-        }
+          plugins: ["@babel/plugin-proposal-class-properties"],
+        },
       },
-    ]
+    ],
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: './app/index.html',
-      title: "nowa aplikacja",
+      template: "./app/index.html",
+      title: "mishiko new app",
       minify: {
-        collapseWhitespace: true
-      }
+        collapseWhitespace: true,
+      },
     }),
     new MiniCssExtractPlugin({
-      filename: '[name]-[contenthash].css',
-      chunkFilename: "[id].css"
+      filename: "[name]-[contenthash].css",
+      chunkFilename: "[id].css",
+      favicon: "./app/images/favicon-32x32.png",
     }),
-    new CopyPlugin(
-      [
-        {
-          from: 'app/images',
-          to: 'build/images'
-        }
-      ]
-    )
-  ]
-}
+    new CopyPlugin([
+      {
+        from: "app/images",
+        to: "images",
+      },
+    ]),
+  ],
+};

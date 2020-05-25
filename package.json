@@ -1,8 +1,8 @@
 {
-  "name": "wp-mini-template",
+  "name": "mishiko-portfolio-webpack",
   "version": "1.0.0",
   "author": "Misza777",
-  "description": "Misza777 webpack template with HMR, sass, jquery",
+  "description": "Misza777 webpack grid portfolio with HMR, sass, jquery",
   "repository": {
     "type": "git",
     "url": "https://github.com/https://github.com/misza777/Misza777_Webpack_Template"
@@ -18,9 +18,7 @@
     "webpack",
     "boilerplate",
     "hmr",
-    "sass",
-    "jquery",
-    "bootstrap"
+    "sass"
   ],
   "license": "ISC",
   "browserslist": "> 0.2%",
@@ -43,19 +41,19 @@
     "css-loader": "^3.2.0",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.8.0",
-    "node-sass": "^4.13.1",
+    "node-sass": "^4.14.1",
     "postcss-loader": "^3.0.0",
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.0",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.9",
-    "webpack-dev-server": "^3.8.1"
+    "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
     "@babel/polyfill": "^7.8.3",
     "autoprefixer": "^9.7.4",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.1",
     "normalize.css": "^8.0.1"
   }
 }
