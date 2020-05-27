@@ -100,6 +100,12 @@ module.exports = {
       favicon: "./app/images/favicon-32x32.png",
       chunks: ["app"],
     }),
+    new HtmlWebpackPlugin({
+      template: "./app/contact.html",
+      filename: "contact.html",
+      favicon: "./app/images/favicon-32x32.png",
+      chunks: ["app"],
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new copyPlugin([
       {
