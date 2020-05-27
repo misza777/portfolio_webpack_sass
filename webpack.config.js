@@ -8,7 +8,9 @@ const copyPlugin = require("copy-webpack-plugin");
 const env = process.env.NODE_ENV;
 
 module.exports = {
-  entry: "./app/js/app.js",
+  entry: {
+    app: "./app/js/app.js",
+  },
 
   // mode: development,
   mode: env,
@@ -71,6 +73,10 @@ module.exports = {
         test: /\.(jpg|png|svg|gif|jpeg)$/,
         use: "file-loader",
       },
+      {
+        test: /\.html$/,
+        loader: "html-loader",
+      },
     ],
   },
 
@@ -78,8 +84,21 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: "./app/index.html",
+      filename: "index.html",
       title: "Mishiko portfolio",
       favicon: "./app/images/favicon-32x32.png",
+    }),
+    new HtmlWebpackPlugin({
+      template: "./app/about.html",
+      filename: "about.html",
+      favicon: "./app/images/favicon-32x32.png",
+      chunks: ["app"],
+    }),
+    new HtmlWebpackPlugin({
+      template: "./app/work.html",
+      filename: "work.html",
+      favicon: "./app/images/favicon-32x32.png",
+      chunks: ["app"],
     }),
     new webpack.HotModuleReplacementPlugin(),
     new copyPlugin([

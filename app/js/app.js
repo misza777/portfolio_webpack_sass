@@ -1,4 +1,5 @@
 import "../sass/index.scss";
+// import "../about.html";
 
 //select DOM Items
 const menuBtn = document.querySelector(".menu-btn");

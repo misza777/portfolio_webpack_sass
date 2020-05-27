@@ -31,6 +31,7 @@ a {
 main {
     padding: 1rem 4rem;
     // height: 100%;
+    //chodzi o to zeby footer nie byl za wysoko a on ma 60 px  
     min-height: calc(100vh - 60px);
 
     .icons {
@@ -38,6 +39,7 @@ main {
 
         a {
             padding: 0.4rem;
+            color: set-text-color($primary-color);
             @include easeOut;
 
             &:hover {
