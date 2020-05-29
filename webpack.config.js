@@ -12,19 +12,18 @@ module.exports = {
     app: "./app/js/app.js",
   },
 
-  // mode: development,
   mode: env,
-
+  devtool: "inline-source-map",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].bundle.js",
-    publicPath: "./",
+    // publicPath: "/",
   },
 
   devServer: {
     open: true,
     publicPath: "/",
-    contentBase: path.resolve(__dirname, "/"),
+    contentBase: path.resolve(__dirname, "/app"),
     compress: true,
     port: 3500,
     hot: true,
@@ -47,34 +46,29 @@ module.exports = {
         test: /\.(sa|sc|c)ss$/,
         use: ["style-loader", "css-loader", "postcss-loader", "sass-loader"],
       },
-      // {
-      // test: /\.(jpg|png|svg|gif|jpeg)$/,
-      // use: "file-loader",
-      // loader: "file?name=[name].[ext]",
-      // options: {
-      // name: "[name].[ext]",
-      // outputPath: 'images',
-      // publicPath: '../images'
-      // },
-      // {
-      //   test: /\.(sa|sc|c)ss$/,
-      //   use: [
-      //     env === "development" ? "style-loader" : MiniCssExtractPlugin.loader,
-      //     "css-loader",
-      //     "postcss-loader",
-      //     "sass-loader",
-      //   ],
-      // },
       {
         test: /\.txt$/,
         use: "raw-loader",
       },
+      // {
+      // test: /\.(jpg|png|svg|gif|jpeg)$/,
+      // use: "file-loader",
+      // },
       {
         test: /\.(jpg|png|svg|gif|jpeg)$/,
-        use: "file-loader",
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "[name]_[contenthash:6].[ext]",
+              outputPath: "images",
+              // publicPath: "images",
+            },
+          },
+        ],
       },
       {
-        test: /\.html$/,
+        test: /\.html$/i,
         loader: "html-loader",
       },
     ],
@@ -107,11 +101,11 @@ module.exports = {
       chunks: ["app"],
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new copyPlugin([
-      {
-        from: "app/images",
-        to: "images",
-      },
-    ]),
+    // new copyPlugin([
+    // {
+    // from: "app/images",
+    // to: "images",
+    // },
+    // ]),
   ],
 };

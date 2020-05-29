@@ -12,7 +12,8 @@
     "start": "cross-env NODE_ENV=development webpack-dev-server --inline --progress --colors",
     "build": "cross-env NODE_ENV=production webpack --config ./config/webpack.config.prod.js",
     "dev": "cross-env NODE_ENV=development webpack",
-    "dev:watch": "npm run dev -- --watch"
+    "dev:watch": "npm run dev -- --watch",
+    "deploy": "gh-pages -d build"
   },
   "keywords": [
     "webpack",
@@ -54,6 +55,8 @@
   "dependencies": {
     "@babel/polyfill": "^7.8.3",
     "autoprefixer": "^9.7.4",
+    "file-loader": "^6.0.0",
+    "gh-pages": "^2.2.0",
     "jquery": "^3.5.1",
     "normalize.css": "^8.0.1"
   }

@@ -16,7 +16,6 @@ module.exports = {
   output: {
     filename: "[name]-bundle[contenthash:6].js",
     path: path.resolve(__dirname, "../", "build"),
-    publicPath: "./",
   },
   module: {
     rules: [
@@ -39,20 +38,22 @@ module.exports = {
           {
             loader: "file-loader",
             options: {
-              name: "[name][contenthash:6].[ext]",
+              name: "[name]_[contenthash:6].[ext]",
               outputPath: "images",
+              publicPath: "images",
             },
           },
-          {
-            loader: "image-webpack-loader",
-            // ,
-            // options: {
-            //   mozjpeg: {
-            //     quality: 70,
-            //     progressive: true
-            //   }
-            // }
-          },
+
+          // {
+          // loader: "image-webpack-loader",
+          // ,
+          // options: {
+          //   mozjpeg: {
+          //     quality: 70,
+          //     progressive: true
+          //   }
+          // }
+          // },
         ],
       },
       {
@@ -76,16 +77,34 @@ module.exports = {
       minify: {
         collapseWhitespace: true,
       },
+      favicon: "./app/images/favicon-32x32.png",
+    }),
+    new HtmlWebpackPlugin({
+      template: "./app/about.html",
+      filename: "about.html",
+      favicon: "./app/images/favicon-32x32.png",
+      chunks: ["main"],
+    }),
+    new HtmlWebpackPlugin({
+      template: "./app/work.html",
+      filename: "work.html",
+      favicon: "./app/images/favicon-32x32.png",
+      chunks: ["main"],
+    }),
+    new HtmlWebpackPlugin({
+      template: "./app/contact.html",
+      filename: "contact.html",
+      favicon: "./app/images/favicon-32x32.png",
+      chunks: ["main"],
     }),
     new MiniCssExtractPlugin({
       filename: "[name]-[contenthash].css",
       chunkFilename: "[id].css",
-      favicon: "./app/images/favicon-32x32.png",
     }),
     new CopyPlugin([
       {
-        from: "app/images",
-        to: "images",
+        from: "app/images/projects",
+        to: "images/projects",
       },
     ]),
   ],
