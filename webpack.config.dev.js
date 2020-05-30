@@ -1,19 +1,21 @@
 const path = require("path");
 const webpack = require("webpack");
-// const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const copyPlugin = require("copy-webpack-plugin");
+// const copyPlugin = require("copy-webpack-plugin");
 
 const env = process.env.NODE_ENV;
 
 module.exports = {
+  mode: env,
+
   entry: {
-    app: "./app/js/app.js",
+    main: "./app/js/app.js",
+    vendor: "./app/js/vendor.js",
   },
 
-  mode: env,
   devtool: "inline-source-map",
+
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].bundle.js",
@@ -56,16 +58,14 @@ module.exports = {
       // },
       {
         test: /\.(jpg|png|svg|gif|jpeg)$/,
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              name: "[name]_[contenthash:6].[ext]",
-              outputPath: "images",
-              // publicPath: "images",
-            },
+        use: {
+          loader: "file-loader",
+          options: {
+            name: "[name]_[contenthash:6].[ext]",
+            outputPath: "images",
+            // publicPath: "images",
           },
-        ],
+        },
       },
       {
         test: /\.html$/i,
@@ -86,19 +86,19 @@ module.exports = {
       template: "./app/about.html",
       filename: "about.html",
       favicon: "./app/images/favicon-32x32.png",
-      chunks: ["app"],
+      chunks: ["main"],
     }),
     new HtmlWebpackPlugin({
       template: "./app/work.html",
       filename: "work.html",
       favicon: "./app/images/favicon-32x32.png",
-      chunks: ["app"],
+      chunks: ["main"],
     }),
     new HtmlWebpackPlugin({
       template: "./app/contact.html",
       filename: "contact.html",
       favicon: "./app/images/favicon-32x32.png",
-      chunks: ["app"],
+      chunks: ["main"],
     }),
     new webpack.HotModuleReplacementPlugin(),
     // new copyPlugin([

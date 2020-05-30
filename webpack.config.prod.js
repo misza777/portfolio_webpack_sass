@@ -1,9 +1,11 @@
 const path = require("path");
-const webpack = require("webpack");
+// const webpack = require("webpack");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const TerserJSPlugin = require("terser-webpack-plugin");
 
 const env = process.env.NODE_ENV;
 
@@ -12,10 +14,11 @@ module.exports = {
 
   entry: {
     main: "./app/js/app.js",
+    vendor: "./app/js/vendor.js",
   },
   output: {
-    filename: "[name]-bundle[contenthash:6].js",
-    path: path.resolve(__dirname, "../", "build"),
+    filename: "[name]-bundle-[contenthash:6].js",
+    path: path.resolve(__dirname, "build"),
   },
   module: {
     rules: [
@@ -40,7 +43,7 @@ module.exports = {
             options: {
               name: "[name]_[contenthash:6].[ext]",
               outputPath: "images",
-              publicPath: "images",
+              // publicPath: "images",
             },
           },
 
@@ -67,7 +70,14 @@ module.exports = {
           plugins: ["@babel/plugin-proposal-class-properties"],
         },
       },
+      {
+        test: /\.html$/i,
+        loader: "html-loader",
+      },
     ],
+  },
+  optimization: {
+    minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -75,7 +85,9 @@ module.exports = {
       template: "./app/index.html",
       title: "mishiko new app",
       minify: {
+        removeAttributeQuotes: true,
         collapseWhitespace: true,
+        removeComments: true,
       },
       favicon: "./app/images/favicon-32x32.png",
     }),
@@ -83,22 +95,22 @@ module.exports = {
       template: "./app/about.html",
       filename: "about.html",
       favicon: "./app/images/favicon-32x32.png",
-      chunks: ["main"],
+      // chunks: ["main","vendor"],
     }),
     new HtmlWebpackPlugin({
       template: "./app/work.html",
       filename: "work.html",
       favicon: "./app/images/favicon-32x32.png",
-      chunks: ["main"],
+      // chunks: ["main","vendor"],
     }),
     new HtmlWebpackPlugin({
       template: "./app/contact.html",
       filename: "contact.html",
       favicon: "./app/images/favicon-32x32.png",
-      chunks: ["main"],
+      // chunks: ["main"],
     }),
     new MiniCssExtractPlugin({
-      filename: "[name]-[contenthash].css",
+      filename: "[name]-[contenthash:6].css",
       chunkFilename: "[id].css",
     }),
     new CopyPlugin([
