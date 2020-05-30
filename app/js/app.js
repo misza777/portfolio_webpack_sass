@@ -1,3 +1,4 @@
+// import "jquery";
 import "../sass/index.scss";
 // import "../about.html";
 

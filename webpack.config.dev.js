@@ -75,6 +75,11 @@ module.exports = {
   },
 
   plugins: [
+    //ladowanie jquery
+    // new webpack.ProvidePlugin({
+    // $: "jquery",
+    // jQuery: "jquery",
+    // }),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: "./app/index.html",
