@@ -1,5 +1,5 @@
 header {
-    position: fixed;
+    position: relative;
     z-index: 2;
     width: 100%;
 }
@@ -8,8 +8,8 @@ header {
 .menu-btn {
     position: absolute;
     z-index: 3;
-    right: 4rem;
-    top: 2rem;
+    right: 10%;
+    top: calc(100vh - 94vh);
     cursor: pointer;
     @include easeOut;
 
