@@ -1,6 +1,6 @@
 .about-info {
     display: grid;
-    grid-gap: 30px;
+    grid-gap: 1.4rem;
     grid-template-areas:
         'bioimage bio bio'
         'job1 job2 job3';
@@ -27,8 +27,49 @@
         font-size: 1.5rem;
     }
 
+    .job {
+        background: lighten($primary-color, 5);
+        padding: 0.5rem;
+        border-bottom: $secondary-color 5px solid;
+        font-size: 1.2rem;
+
+        & .icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        & .skill_icon {
+            height: 70px;
+            width: 70px;
+            padding: .2em;
+        }
+
+        & .train-icon {
+            width: 180px;
+            height: 70px;
+            background-color: whitesmoke;
+        }
+
+        & .course-icon {
+            &-big {
+                width: 200px;
+                height: 70px;
+                padding: 5px;
+            }
+
+            &-small {
+                width: 70px;
+                height: 70px;
+                padding: 5px;
+            }
+        }
+    }
+
     .job-1 {
         grid-area: job1;
+
     }
 
     .job-2 {
@@ -39,14 +80,7 @@
         grid-area: job3;
     }
 
-    .job {
-        background: lighten($primary-color, 5);
-        padding: 0.5rem;
-        border-bottom: $secondary-color 5px solid;
-    }
 }
-
-
 
 #main-footer {
     text-align: center;
