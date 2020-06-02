@@ -13,6 +13,7 @@
     "build": "cross-env NODE_ENV=production webpack --config ./webpack.config.prod.js",
     "dev": "cross-env NODE_ENV=development webpack --config ./webpack.config.dev.js",
     "dev:watch": "npm run dev -- --watch",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
   "keywords": [
