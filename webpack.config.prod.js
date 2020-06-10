@@ -1,5 +1,5 @@
 const path = require("path");
-// const webpack = require("webpack");
+const webpack = require("webpack");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -11,7 +11,7 @@ const env = process.env.NODE_ENV;
 
 module.exports = {
   mode: env,
-
+  devtool: "source-map",
   entry: {
     main: "./app/js/app.js",
     vendor: "./app/js/vendor.js",
@@ -19,6 +19,7 @@ module.exports = {
   output: {
     filename: "[name]-bundle-[contenthash:6].js",
     path: path.resolve(__dirname, "build"),
+    // publicPath: "/",
   },
   module: {
     rules: [
@@ -81,13 +82,21 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
+    //eliminate duplicate packages when generating bundle
+    // new webpack.optimize.DedupePlugin(),
     new HtmlWebpackPlugin({
       template: "./app/index.html",
-      title: "mishiko new app",
+      title: "mishiko portfolio",
       minify: {
         removeAttributeQuotes: true,
         collapseWhitespace: true,
         removeComments: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        keepClosingSlash: true,
+        minifyURLs: true,
       },
       favicon: "./app/images/favicon-32x32.png",
     }),
@@ -95,7 +104,6 @@ module.exports = {
       template: "./app/about.html",
       filename: "about.html",
       favicon: "./app/images/favicon-32x32.png",
-      // chunks: ["main","vendor"],
     }),
     new HtmlWebpackPlugin({
       template: "./app/work.html",
